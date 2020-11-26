@@ -38,7 +38,8 @@ jobs:
       with:
         version: '4.5'
         openshift_server_url: ${{ secrets.OPENSHIFT_SERVER_URL }}
-        parameters: '{"apitoken": "${{ secrets.API_TOKEN }}", "acceptUntrustedCerts": "true"}'
+        parameters: '{"apitoken": "${{ secrets.API_TOKEN }}"}'
+    # , "acceptUntrustedCerts": "true"    
         cmd: |
           oc project ${PROJECT}
           oc get pods
