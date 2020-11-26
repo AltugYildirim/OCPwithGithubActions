@@ -82,4 +82,4 @@ jobs:
     - name: Helm Install
       run: |
         helm list
-        helm install -f ./charts/values.yaml reverseword ./charts --set environment=prod --set namespace=reverse-word-prod
+        helm upgrade -f ./charts/values.yaml reverseword ./charts --set environment=prod --set namespace=reverse-word-prod
