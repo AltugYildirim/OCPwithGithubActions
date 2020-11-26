@@ -1,5 +1,6 @@
 # UI controll
 title: "Welcome to Github Actions with OCP Workshop"
+wild_card_dns: "apps.n3ztso2x.westeurope.aroapp.io"
 
 # Service controlls
 serviceName: reverse-words

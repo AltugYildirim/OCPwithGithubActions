@@ -53,4 +53,19 @@ spec:
   selector:
     app: reverse-words-{{ .Values.environment }}
   type: {{ .Values.serviceType }}
-
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: reverse-words-{{ .Values.environment }}-route
+  labels:
+    app: reverse-words-{{ .Values.environment }}
+spec:
+  host: reversewords-{{ .Values.environment }}.{{ .Values.wild_card_dns }}
+  to:
+    kind: Service
+    name: reverse-words-{{ .Values.environment }}
+    weight: 100
+  port:
+    targetPort: http
+  wildcardPolicy: None

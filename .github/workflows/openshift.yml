@@ -47,7 +47,7 @@ jobs:
     # Expose the service created by using the oc CLI installed previously
     - name: Helm Install
       run: |
-        helm install -f ./charts/values.yaml reverseword ./charts
+        helm upgrade -f ./charts/values.yaml reverseword ./charts
     #- name: Execute additional oc commands
     #  run: |
     #    oc expose svc/${{ env.APP_NAME }}
