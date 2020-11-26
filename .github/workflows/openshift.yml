@@ -20,7 +20,7 @@ on:
 
 # Environment variables available to all jobs and steps in this workflow
 env:
-  PROJECT: myproject
+  PROJECT: github-actions
   APP_NAME: myapp
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
