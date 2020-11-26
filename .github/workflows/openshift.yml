@@ -43,7 +43,10 @@ jobs:
         cmd: |
           oc project ${PROJECT}
           oc get pods
-
+    - name: echo
+      run: |
+        echo ${{ github.ref }}
+        echo ${{ github.head.ref }}
   staging:
     if: github.ref != 'refs/heads/main' &&  github.event_name == 'push'
     name: CD -Staging
