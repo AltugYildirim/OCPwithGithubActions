@@ -45,6 +45,7 @@ jobs:
           oc get pods
 
   staging:
+    if: github.run_id != 'refs/heads/main' &&  github.event_name == 'push'
     name: CD -Staging
     needs: build
     runs-on: ubuntu-latest
@@ -67,6 +68,7 @@ jobs:
         helm upgrade -f ./charts/values.yaml reverseword ./charts --set environment=stage
 
   prod:
+    if: github.run_id == 'refs/heads/main' &&  github.event_name == 'push'
     name: CD -Production
     needs: build
     runs-on: ubuntu-latest
