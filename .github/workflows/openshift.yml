@@ -64,6 +64,7 @@ jobs:
 
     - name: Helm Install
       run: |
+        echo ${{ github.run_id }}
         helm list
         helm upgrade -f ./charts/values.yaml reverseword ./charts --set environment=stage
 
