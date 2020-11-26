@@ -37,9 +37,9 @@ jobs:
   
     - name: echo
       run: |
-        echo ${{ github.ref }}
-        echo ${{ github.head_ref }}
-        echo ${{ github.event_name  }}
+       docker login -u altugyildirim -p ${{ secrets.QUAYTOKEN }}
+       docker build . -t quay.io/altugyildirim/reversewords:${{ github.run_id }} -f Dockerfile
+       docker push quay.io/altugyildirim:${{ github.run_id }} 
   staging:
     if: github.ref == 'refs/heads/stage' &&  github.event_name == 'push'
     name: CD -Staging
