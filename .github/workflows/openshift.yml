@@ -37,7 +37,7 @@ jobs:
   
     - name: Container Building and Pushing
       run: |
-       docker login -u altugyildirim -p ${{ secrets.QUAYTOKEN }}
+       docker login quay.io -u altugyildirim -p ${{ secrets.QUAYTOKEN }} 
        docker build . -t quay.io/altugyildirim/reversewords:${{ github.run_id }} -f Dockerfile
        docker push quay.io/altugyildirim/reversewords:${{ github.run_id }}
   staging:
