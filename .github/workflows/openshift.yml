@@ -61,7 +61,7 @@ jobs:
     - name: Helm Install
       run: |
         helm list
-        helm upgrade -f ./charts/values.yaml reverseword-stage ./charts --set environment=stage --set namespace=reverse-word-stage
+        helm upgrade -f ./charts/values.yaml reverseword-stage ./charts --set environment=stage --set namespace=reverse-word-stage --set tag ${{ github.run_id }}
 
   prod:
     if: github.ref == 'refs/heads/main' &&  github.event_name == 'push'
@@ -83,7 +83,7 @@ jobs:
     - name: Helm Install
       run: |
         helm list
-        helm upgrade -f ./charts/values.yaml reverseword ./charts --set environment=prod --set namespace=reverse-word-prod
+        helm upgrade -f ./charts/values.yaml reverseword ./charts --set environment=prod --set namespace=reverse-word-prod --set tag ${{ github.run_id }}
 
   pull-request:
     if: github.ref == 'refs/heads/stage' &&  github.event_name == 'push'
