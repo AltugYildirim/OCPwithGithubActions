@@ -41,8 +41,9 @@ jobs:
         parameters: '{"apitoken": "${{ secrets.API_TOKEN }}", "acceptUntrustedCerts": "true"}'
         cmd: |
           oc project ${PROJECT}
-          oc new-app ${GITHUB_WORKSPACE} --name ${APP_NAME}
+          oc get pods
+    #      oc new-app ${GITHUB_WORKSPACE} --name ${APP_NAME}
     # Expose the service created by using the oc CLI installed previously
-    - name: Execute additional oc commands
-      run: |
-        oc expose svc/${{ env.APP_NAME }}
+    #- name: Execute additional oc commands
+    #  run: |
+    #    oc expose svc/${{ env.APP_NAME }}
