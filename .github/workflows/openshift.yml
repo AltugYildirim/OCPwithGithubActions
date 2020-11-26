@@ -26,7 +26,7 @@ env:
 
 jobs:
   build:
-    name: Setup and Deploy
+    name: CI
     runs-on: ubuntu-latest
 
     steps:
@@ -43,12 +43,25 @@ jobs:
         cmd: |
           oc project ${PROJECT}
           oc get pods
-    #      oc new-app ${GITHUB_WORKSPACE} --name ${APP_NAME}
-    # Expose the service created by using the oc CLI installed previously
+
+  staging:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Set up oc CLI and deploy to OpenShift
+      uses: redhat-developer/openshift-actions@v2.1.0
+      with:
+        version: '4.5'
+        openshift_server_url: ${{ secrets.OPENSHIFT_SERVER_URL }}
+        parameters: '{"apitoken": "${{ secrets.API_TOKEN }}", "acceptUntrustedCerts": "true" }' 
+
     - name: Helm Install
       run: |
         helm list
-        helm upgrade -f ./charts/values.yaml reverseword ./charts
+        helm upgrade -f ./charts/values.yaml reverseword ./charts --set environment=stage
     #- name: Execute additional oc commands
     #  run: |
     #    oc expose svc/${{ env.APP_NAME }}

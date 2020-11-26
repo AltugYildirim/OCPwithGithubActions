@@ -10,3 +10,4 @@ servicePort: 8080
 #deployment controlls
 environment: stage
 tag: latest
+namespace: stage
