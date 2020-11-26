@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: reverse-words
+  name: reverse-words
+spec:
+  template:
+    spec:
+      containers:
+      - env:
+        - name: RELEASE
+          value: "{{ .Values.environment }} - release and {{ .Values.environment }}"
+        - $patch: replace
+        image: quay.io/altugyildirim/reversewords:{{ .Values.tag }}
+        name: reverse-words
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: {{ .Values.serviceName }}
+  name: {{ .Values.serviceName }}
+spec:
+  ports:
+  - port: {{ .Values.servicePort }}
+    protocol: TCP
+    targetPort: http
+    name: http
+  selector:
+    app: reverse-words
+  type: {{ .Values.serviceType }}
+
