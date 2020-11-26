@@ -22,6 +22,7 @@ on:
 env:
   PROJECT: myproject
   APP_NAME: myapp
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
 jobs:
   build:
@@ -38,8 +39,7 @@ jobs:
       with:
         version: '4.5'
         openshift_server_url: ${{ secrets.OPENSHIFT_SERVER_URL }}
-        parameters: '{"apitoken": "${{ secrets.API_TOKEN }}"}'
-    # , "acceptUntrustedCerts": "true"    
+        parameters: '{"apitoken": "${{ secrets.API_TOKEN }}", "acceptUntrustedCerts": "true" }'   
         cmd: |
           oc project ${PROJECT}
           oc get pods
