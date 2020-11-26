@@ -43,11 +43,11 @@ jobs:
         cmd: |
           oc project ${PROJECT}
           oc get pods
-          helm list
     #      oc new-app ${GITHUB_WORKSPACE} --name ${APP_NAME}
     # Expose the service created by using the oc CLI installed previously
     - name: Helm Install
       run: |
+        helm list
         helm upgrade -f ./charts/values.yaml reverseword ./charts
     #- name: Execute additional oc commands
     #  run: |
