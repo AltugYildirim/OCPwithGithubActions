@@ -42,8 +42,8 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: {{ .Values.serviceName }}
-  name: {{ .Values.serviceName }}
+    app: {{ .Values.serviceName }}-{{ .Values.environment }}
+  name: {{ .Values.serviceName }}-{{ .Values.environment }}
 spec:
   ports:
   - port: {{ .Values.servicePort }}
