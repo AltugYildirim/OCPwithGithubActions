@@ -4,6 +4,7 @@ metadata:
   name: reverse-words-{{ .Values.environment }}
   labels:
     app: reverse-words-{{ .Values.environment }}
+  namespace: {{ .Values.namespace }}
 spec:
   replicas: 1
   selector:
@@ -44,6 +45,7 @@ metadata:
   labels:
     app: {{ .Values.serviceName }}-{{ .Values.environment }}
   name: {{ .Values.serviceName }}-{{ .Values.environment }}
+  namespace: {{ .Values.namespace }}
 spec:
   ports:
   - port: {{ .Values.servicePort }}
@@ -58,6 +60,7 @@ kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
   name: reverse-words-{{ .Values.environment }}-route
+  namespace: {{ .Values.namespace }}
   labels:
     app: reverse-words-{{ .Values.environment }}
 spec:

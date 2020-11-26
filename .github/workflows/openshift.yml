@@ -20,7 +20,7 @@ on:
 
 # Environment variables available to all jobs and steps in this workflow
 env:
-  PROJECT: github-actions
+  PROJECT: helm-charts
   APP_NAME: myapp
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
@@ -58,10 +58,8 @@ jobs:
 
     - name: Helm Install
       run: |
-        echo ${{ github.ref }}
-        echo ${{ github.head.ref }}
         helm list
-        helm upgrade -f ./charts/values.yaml reverseword ./charts --set environment=stage
+        helm upgrade -f ./charts/values.yaml reverseword ./charts --set environment=stage --set namespace=reverse-word-stage
 
   prod:
     if: github.ref == 'refs/heads/main' &&  github.event_name == 'push'
@@ -84,4 +82,4 @@ jobs:
     - name: Helm Install
       run: |
         helm list
-        helm upgrade -f ./charts/values.yaml reverseword ./charts --set environment=prod
+        helm install -f ./charts/values.yaml reverseword ./charts --set environment=prod --set namespace=reverse-word-prod
