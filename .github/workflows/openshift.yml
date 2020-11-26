@@ -27,6 +27,7 @@ env:
 
 jobs:
   build:
+    if: github.ref == 'refs/heads/stage' &&  github.event_name == 'push'
     name: CI
     runs-on: ubuntu-latest
 
@@ -65,7 +66,6 @@ jobs:
   prod:
     if: github.ref == 'refs/heads/main' &&  github.event_name == 'push'
     name: CD -Production
-    needs: build
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
