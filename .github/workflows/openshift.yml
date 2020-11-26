@@ -32,17 +32,7 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-
-    # Set up the oc CLI, authenticate and deploy to OpenShift
-    - name: Set up oc CLI and deploy to OpenShift
-      uses: redhat-developer/openshift-actions@v2.1.0
-      with:
-        version: '4.5'
-        openshift_server_url: ${{ secrets.OPENSHIFT_SERVER_URL }}
-        parameters: '{"apitoken": "${{ secrets.API_TOKEN }}", "acceptUntrustedCerts": "true" }'   
-        cmd: |
-          oc project ${PROJECT}
-          oc get pods
+  
     - name: echo
       run: |
         echo ${{ github.ref }}
@@ -74,7 +64,7 @@ jobs:
         helm upgrade -f ./charts/values.yaml reverseword ./charts --set environment=stage
 
   prod:
-    if: github.run_id == 'refs/heads/main' &&  github.event_name == 'push'
+    if: github.ref == 'refs/heads/main' &&  github.event_name == 'push'
     name: CD -Production
     needs: build
     runs-on: ubuntu-latest
