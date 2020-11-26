@@ -46,7 +46,8 @@ jobs:
     - name: echo
       run: |
         echo ${{ github.ref }}
-        echo ${{ github.head.ref }}
+        echo ${{ github.head_ref }}
+        echo ${{ github.event_name  }}
   staging:
     if: github.ref != 'refs/heads/main' &&  github.event_name == 'push'
     name: CD -Staging
